@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import { Search, User, Wallet, Bell, Briefcase, ChevronRight, ChevronLeft, Send, DollarSign } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import ConnectButton from './ui/WalletButton'
+
 
 export default function Component() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -45,16 +47,14 @@ export default function Component() {
       <nav className="bg-gray-100 border-b-4 border-black p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
         <div className="flex items-center space-x-2">
           <span className="text-2xl font-bold text-[#39FF14]">L</span>
-          <h1 className="text-xl font-bold">signal?.state( )</h1>
+          <h1 className="text-xl font-bold">sign?.state( )</h1>
         </div>
         <div className="flex items-center space-x-4">
           <div className="flex items-center bg-white px-3 py-1 rounded-md border-2 border-black shadow-[0_2px_0_rgba(0,0,0,1)]">
             <DollarSign className="w-5 h-5 text-[#39FF14] mr-2" />
             <span className="font-bold">USDT/INR: 82.45</span>
           </div>
-          <button className="px-3 py-1 bg-[#39FF14] text-black rounded-md font-bold text-sm hover:bg-[#32D612] transition-colors border-2 border-black shadow-[0_2px_0_rgba(0,0,0,1)]">
-            Connect Wallet
-          </button>
+         <ConnectButton />
         </div>
       </nav>
 
