@@ -1,5 +1,7 @@
+'use client'
 import React, { useState } from 'react'
-import { Edit, Medal, CheckCircle, Briefcase, ChevronRight, Mail, MapPin, Link as LinkIcon } from 'lucide-react'
+import {  Medal, CheckCircle, Briefcase, ChevronRight, Mail, MapPin, Link as LinkIcon } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Component() {
   const [isEditing, setIsEditing] = useState(false)
@@ -44,10 +46,12 @@ export default function Component() {
   const ProfileView = () => (
     <div className="space-y-4">
       <div className="flex items-center space-x-4">
-        <img
+        <Image
           src={userInfo.profileImage}
           alt={userInfo.name}
           className="rounded-full w-24 h-24 object-cover border-4 border-black"
+          width={100}
+          height={100}
         />
         <div>
           <h2 className="text-2xl font-bold">{userInfo.name}</h2>
@@ -73,10 +77,12 @@ export default function Component() {
   const EditView = () => (
     <div className="space-y-4">
       <div className="flex items-center space-x-4">
-        <img
+        <Image
           src={userInfo.profileImage}
           alt={userInfo.name}
           className="rounded-full w-24 h-24 object-cover border-4 border-black"
+          width={100}
+          height={100}
         />
         <button className="bg-[#39FF14] text-black px-3 py-1 rounded-md font-bold text-sm hover:bg-[#32D612] transition-colors border-2 border-black shadow-[0_2px_0_rgba(0,0,0,1)]">
           Change Photo
