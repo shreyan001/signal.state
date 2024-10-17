@@ -1,17 +1,12 @@
 'use client'
-import React, { useState } from 'react'
-import { Search, User, Wallet, Bell, Briefcase, ChevronRight, ChevronLeft, Send, DollarSign } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import ConnectButton from './ui/WalletButton'
+import React, { useState } from 'react';
+import { Search } from 'lucide-react';
+import AIAssistant from './ui/AIAssistant'; // Import the new component
 
 
 export default function Component() {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [isAIOpen, setIsAIOpen] = useState(false)
-  const [chatMessages, setChatMessages] = useState<{ role: 'user' | 'assistant', content: string }[]>([])
-  const [input, setInput] = useState('')
-  const [activeSection, setActiveSection] = useState('search')
-
+  const [searchTerm, setSearchTerm] = useState('');
+ 
   const users = [
     { name: 'Bianc8.eth', id: '#1696', score: 140, verified: true },
     { name: 'leal.eth', id: '#1008', score: 136, verified: true, special: '🍊' },
@@ -20,57 +15,13 @@ export default function Component() {
     { name: 'JulioMCruz.base.eth', id: '#1287', score: 123, verified: true },
     { name: 'Juampi @/build', id: '#1022', score: 117, verified: true, special: '🍊' },
     { name: 'Tamrat', id: '#353674', score: 117, verified: true },
-  ]
-
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (input.trim()) {
-      setChatMessages([...chatMessages, { role: 'user', content: input }])
-      setTimeout(() => {
-        setChatMessages(prev => [...prev, { role: 'assistant', content: `Here's a response to your query: ${input}` }])
-      }, 500)
-      setInput('')
-    }
-  }
-
-  const sidebarItems = [
-    { icon: Search, label: 'Search', key: 'search' },
-    { icon: User, label: 'Profile', key: 'profile' },
-    { icon: Wallet, label: 'Wallet', key: 'wallet' },
-    { icon: Bell, label: 'Notifications', key: 'notifications' },
-    { icon: Briefcase, label: 'Jobs', key: 'jobs' },
-  ]
+  ];
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-black font-mono">
-      {/* Navbar */}
-      <nav className="bg-gray-100 border-b-4 border-black p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
-        <div className="flex items-center space-x-2">
-          <span className="text-2xl font-bold text-[#39FF14]">L</span>
-          <h1 className="text-xl font-bold">sign?.state( )</h1>
-        </div>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center bg-white px-3 py-1 rounded-md border-2 border-black shadow-[0_2px_0_rgba(0,0,0,1)]">
-            <DollarSign className="w-5 h-5 text-[#39FF14] mr-2" />
-            <span className="font-bold">USDT/INR: 82.45</span>
-          </div>
-         <ConnectButton />
-        </div>
-      </nav>
-
+      
       <div className="flex flex-1">
-        {/* Sidebar */}
-        <div className="w-16 bg-gray-100 flex flex-col items-center py-4 space-y-6 border-r-2 border-black">
-          {sidebarItems.map((item, index) => (
-            <button 
-              key={index} 
-              className={`p-2 hover:bg-gray-200 rounded-md transition-colors ${activeSection === item.key ? 'bg-[#39FF14] text-black' : ''}`}
-              onClick={() => setActiveSection(item.key)}
-            >
-              <item.icon className="w-6 h-6" />
-            </button>
-          ))}
-        </div>
+        
 
         {/* Main Content */}
         <div className="flex-1 p-6 overflow-y-auto">
@@ -121,63 +72,8 @@ export default function Component() {
         </div>
 
         {/* AI Assistant Panel */}
-        <AnimatePresence>
-          <motion.div 
-            className="w-96 bg-white overflow-hidden border-l-2 border-black flex flex-col"
-            initial={{ width: "60px" }}
-            animate={{ width: isAIOpen ? "384px" : "60px" }}
-            transition={{ duration: 0.3 }}
-            style={{ position: 'absolute', right: 0, top: 0, bottom: 0, zIndex: 50 }}
-          >
-            <button 
-              className="absolute top-20 -left-3 transform bg-[#39FF14] text-black border-2 border-black shadow-[0_4px_0_rgba(0,0,0,1)] hover:shadow-[0_2px_0_rgba(0,0,0,1)] active:shadow-none transition-all duration-200 z-10 rounded-full p-2"
-              onClick={() => setIsAIOpen(!isAIOpen)}
-            >
-              {isAIOpen ? <ChevronRight /> : <ChevronLeft />}
-            </button>
-            
-            {!isAIOpen && (
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap text-sm font-bold">
-                AI Trading Assistant
-              </div>
-            )}
-            
-            {isAIOpen && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex flex-col h-full"
-              >
-                <div className="p-6 border-b-2 border-black">
-                  <h2 className="text-xl font-bold mb-4 text-black">AI Trading Assistant</h2>
-                </div>
-                <div className="flex-1 overflow-y-auto p-6 space-y-4">
-                  {chatMessages.map((msg, index) => (
-                    <div key={index} className={`p-2 rounded-md ${msg.role === 'user' ? 'bg-[#39FF14] text-black ml-8' : 'bg-gray-200 text-black mr-8'} border-2 border-black shadow-[0_2px_0_rgba(0,0,0,1)]`}>
-                      {msg.content}
-                    </div>
-                  ))}
-                </div>
-                <form onSubmit={handleSendMessage} className="p-4 border-t-2 border-black">
-                  <div className="flex space-x-2">
-                    <input 
-                      value={input} 
-                      onChange={(e) => setInput(e.target.value)} 
-                      placeholder="Ask me anything..." 
-                      className="flex-grow bg-white text-black border-2 border-black rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#39FF14] shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)]"
-                    />
-                    <button type="submit" className="bg-[#39FF14] text-black px-4 py-2 rounded-md hover:bg-[#32D612] transition-colors border-2 border-black shadow-[0_2px_0_rgba(0,0,0,1)]">
-                      <Send className="w-5 h-5" />
-                    </button>
-                  </div>
-                </form>
-              </motion.div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+        <AIAssistant /> {/* Use the new component */}
       </div>
     </div>
-  )
+  );
 }

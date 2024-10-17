@@ -8,6 +8,9 @@ const nextConfig = {
     // Ignore TypeScript errors during the build
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: ['robohash.org'],
+  },
 };
 
 export default nextConfig;

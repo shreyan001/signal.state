@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -5,6 +6,9 @@ import { headers } from 'next/headers';
 import { cookieToInitialState } from 'wagmi';
 import { config } from '@/lib/siwe';
 import Web3ModalProvider from "@/lib/WalletConnect";
+import { SidebarProvider } from '@/lib/context/SidebarContext';
+import Navbar from '@/components/ui/navbar';
+import Sidebar from '@/components/ui/sidebar';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,14 +34,21 @@ export default function RootLayout({
   const initialState = cookieToInitialState(config, headers().get('cookie'));
   return (
     <html lang="en">
-   <Web3ModalProvider initialState={initialState}>
-
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Web3ModalProvider initialState={initialState}>
+          <SidebarProvider>
+            <div className="flex flex-col min-h-screen bg-white text-black font-mono">
+              <Navbar  />
+              <div className="flex flex-1">
+                <Sidebar  />
+                <main className="flex-1 pl-20 pt-16 pr-4 pb-4 overflow-y-auto">
+                  {children}
+                </main>
+              </div>
+            </div>
+          </SidebarProvider>
+        </Web3ModalProvider>
       </body>
-      </Web3ModalProvider>
     </html>
   );
 }

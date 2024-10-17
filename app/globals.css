@@ -68,6 +68,31 @@ body {
   }
 }
 
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 4px; /* Adjust the width to make it thinner */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #9f9e9e; /* Gray color for the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for a smoother look */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker gray when hovered */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d1d1 #f1f1f1;
+}
+
+
 @layer base {
   * {
     @apply border-border;

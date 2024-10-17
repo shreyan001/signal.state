@@ -25,12 +25,11 @@ createWeb3Modal({
   themeMode: 'light',
   themeVariables: {
     '--w3m-accent': '#39FF14',
-   
-        '--w3m-color-mix': '#F7CA18',
-        '--w3m-color-mix-strength': 16
- 
-    
-    
+    '--w3m-color-mix': '#F7CA18',
+    '--w3m-color-mix-strength': 16,
+    '--w3m-font-family': 'monospace',
+    '--w3m-border-radius-master': '0px',
+    '--w3m-font-size-master': '10px',
   }
 });
 
